@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Subject</key>
+	<dict>
+		<key>Birthday</key>
+		<string>01/01/2001</string>
+		<key>Checked By</key>
+		<string>d</string>
+		<key>Coded From</key>
+		<integer>1</integer>
+		<key>Coder</key>
+		<string>c</string>
+		<key>Date of Test</key>
+		<string>01/01/02</string>
+		<key>Notes</key>
+		<string>ff</string>
+		<key>Number</key>
+		<integer>123</integer>
+		<key>Pre-Screen Information</key>
+		<dict>
+			<key>Pre-Screen Array 0</key>
+			<dict/>
+			<key>Pre-Screen Array 1</key>
+			<dict/>
+		</dict>
+		<key>Primary PS Complete</key>
+		<false/>
+		<key>Primary Pre-Screener</key>
+		<string>a</string>
+		<key>Responses</key>
+		<dict>
+			<key>Response 0</key>
+			<dict>
+				<key>Timecode</key>
+				<dict>
+					<key>Frame</key>
+					<integer>1</integer>
+					<key>Hour</key>
+					<integer>35</integer>
+					<key>Minute</key>
+					<integer>53</integer>
+					<key>Second</key>
+					<integer>10</integer>
+				</dict>
+				<key>Trial</key>
+				<integer>1</integer>
+				<key>Trial Status</key>
+				<true/>
+				<key>Type</key>
+				<string>right</string>
+			</dict>
+			<key>Response 1</key>
+			<dict>
+				<key>Timecode</key>
+				<dict>
+					<key>Frame</key>
+					<integer>14</integer>
+					<key>Hour</key>
+					<integer>35</integer>
+					<key>Minute</key>
+					<integer>53</integer>
+					<key>Second</key>
+					<integer>10</integer>
+				</dict>
+				<key>Trial</key>
+				<integer>1</integer>
+				<key>Trial Status</key>
+				<true/>
+				<key>Type</key>
+				<string>left</string>
+			</dict>
+			<key>Response 2</key>
+			<dict>
+				<key>Timecode</key>
+				<dict>
+					<key>Frame</key>
+					<integer>21</integer>
+					<key>Hour</key>
+					<integer>35</integer>
+					<key>Minute</key>
+					<integer>53</integer>
+					<key>Second</key>
+					<integer>11</integer>
+				</dict>
+				<key>Trial</key>
+				<integer>1</integer>
+				<key>Trial Status</key>
+				<true/>
+				<key>Type</key>
+				<string>right</string>
+			</dict>
+		</dict>
+		<key>Resynchronized Trials</key>
+		<string>ee</string>
+		<key>Secondary PS Complete</key>
+		<false/>
+		<key>Secondary Pre-Screener</key>
+		<string>b</string>
+		<key>Sex</key>
+		<true/>
+	</dict>
+	<key>iCoder State</key>
+	<dict>
+		<key>Mode</key>
+		<string>Code</string>
+	</dict>
+</dict>
+</plist>
