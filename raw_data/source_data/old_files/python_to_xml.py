@@ -128,22 +128,25 @@ def get_total_time(Responses, types=[], trials=None, frames=False):
 
 Data=extract_responses(tree)
 Responses=Data['Responses']
+# print(Data)
+# for i in Responses:
+# 	print(i)
 Datav=get_trials(Data, True)
-# for i in range(len(Datav.keys())):
-# 	print('Trial %i has the following responses:' %(list(Datav.keys())[i]))
-# 	for res in list(Datav.values())[i]:
-# 		print(res)
+for i in range(len(Datav.keys())):
+	print('Trial %i has the following responses:' %(list(Datav.keys())[i]))
+	for res in list(Datav.values())[i]:
+		print(res)
 
 # print(get_total_time(Data['Responses'], ['left'], frames=False, trials=[9]))
-with open('tri.tsv', 'w') as tsv_file:
-    tsv_writer = csv.writer(tsv_file, delimiter='\t')
-    tsv_writer.writerow(['Trial Number', 'Right', 'Left', 'Away']) # First Row
-    for trial in get_trials(Data,True):
-    	tsv_writer.writerow([trial,
-    		str(get_total_time(Responses, ['right'],[trial])),
-    		str(get_total_time(Responses, ['left'],[trial])),
-    		str(get_total_time(Responses, ['away'],[trial]))
-			])
+# with open('tri.tsv', 'w') as tsv_file:
+#     tsv_writer = csv.writer(tsv_file, delimiter='\t')
+#     tsv_writer.writerow(['Trial Number', 'Right', 'Left', 'Away']) # First Row
+#     for trial in get_trials(Data,True):
+#     	tsv_writer.writerow([trial,
+#     		str(get_total_time(Responses, ['right'],[trial])),
+#     		str(get_total_time(Responses, ['left'],[trial])),
+#     		str(get_total_time(Responses, ['away'],[trial]))
+			# ])
 
 
 
