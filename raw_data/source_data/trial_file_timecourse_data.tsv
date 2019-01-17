@@ -1,0 +1,248 @@
+Response	Hour	Minute	Second	Frame	Trial	Trial Status	Type	Duration
+	23	52	8	8	2	False	coding	4600.0
+0	23	52	8	8	2	True	left	
+1	23	52	9	16	2	True	off	
+2	23	52	9	20	2	True	right	
+3	23	52	10	11	2	True	off	
+4	23	52	10	16	2	True	left	
+5	23	52	11	13	2	True	off	
+6	23	52	11	18	2	True	right	
+7	23	52	12	26	2	False	right	
+	23	52	12	26	2	False	coding	7500.0
+8	23	52	15	23	3	True	right	
+9	23	52	16	20	3	True	off	
+10	23	52	16	24	3	True	left	
+11	23	52	19	12	3	True	off	
+12	23	52	19	18	3	True	right	
+13	23	52	20	11	3	False	right	
+	23	52	20	11	3	False	coding	7466.67
+14	23	52	23	7	4	True	left	
+15	23	52	23	10	4	True	off	
+16	23	52	23	15	4	True	right	
+17	23	52	24	12	4	True	off	
+18	23	52	24	15	4	True	left	
+19	23	52	25	9	4	True	off	
+20	23	52	25	14	4	True	right	
+21	23	52	27	25	4	False	right	
+	23	52	27	25	4	False	coding	7533.33
+22	23	52	30	22	5	True	right	
+23	23	52	31	23	5	True	off	
+24	23	52	31	27	5	True	left	
+25	23	52	32	22	5	True	off	
+26	23	52	32	27	5	True	right	
+27	23	52	35	11	5	False	right	
+	23	52	35	11	5	False	coding	8400.0
+28	23	52	38	7	6	True	left	
+29	23	52	38	10	6	True	off	
+30	23	52	38	14	6	True	right	
+31	23	52	39	4	6	True	off	
+32	23	52	39	8	6	True	left	
+33	23	52	40	21	6	True	off	
+34	23	52	40	26	6	True	right	
+35	23	52	43	23	6	False	right	
+	23	52	43	23	6	False	coding	8300.0
+36	23	52	46	20	7	True	left	
+37	23	52	47	2	7	True	off	
+38	23	52	47	6	7	True	right	
+39	23	52	47	21	7	True	off	
+40	23	52	47	26	7	True	left	
+41	23	52	49	28	7	True	off	
+42	23	52	50	5	7	True	right	
+43	23	52	52	2	7	False	right	
+	23	52	52	2	7	False	coding	7900.0
+44	23	52	54	28	8	True	right	
+45	23	52	55	3	8	True	off	
+46	23	52	55	7	8	True	left	
+47	23	52	56	26	8	True	off	
+48	23	52	57	0	8	True	right	
+49	23	52	58	21	8	True	off	
+50	23	52	58	25	8	True	left	
+51	23	52	59	19	8	True	off	
+52	23	52	59	26	8	True	right	
+53	23	52	59	29	8	False	right	
+	23	52	59	29	8	False	coding	7466.67
+54	23	53	2	25	9	True	left	
+55	23	53	7	13	9	False	left	
+	23	53	7	13	9	False	coding	8300.0
+56	23	53	10	9	10	True	left	
+57	23	53	10	14	10	True	off	
+58	23	53	10	17	10	True	right	
+59	23	53	13	8	10	True	off	
+60	23	53	13	13	10	True	left	
+61	23	53	15	7	10	True	off	
+62	23	53	15	8	10	True	away	
+63	23	53	15	22	10	False	away	
+	23	53	15	22	10	False	coding	7466.67
+64	23	53	18	18	11	True	right	
+65	23	53	18	26	11	True	off	
+66	23	53	18	29	11	True	left	
+67	23	53	21	3	11	True	off	
+68	23	53	21	8	11	True	right	
+69	23	53	23	6	11	False	right	
+	23	53	23	6	11	False	coding	11333.33
+	23	53	34	16	13	False	coding	4466.67
+70	23	53	34	16	13	True	right	
+71	23	53	39	0	13	False	right	
+	23	53	39	0	13	False	coding	7800.0
+72	23	53	41	25	14	True	right	
+73	23	53	42	4	14	True	off	
+74	23	53	42	5	14	True	away	
+75	23	53	42	12	14	True	off	
+76	23	53	42	13	14	True	left	
+77	23	53	44	18	14	True	off	
+78	23	53	44	24	14	True	right	
+79	23	53	45	19	14	True	off	
+80	23	53	45	22	14	True	left	
+81	23	53	46	24	14	False	left	
+	23	53	46	24	14	False	coding	7533.33
+82	23	53	49	20	15	True	left	
+83	23	53	54	10	15	False	left	
+	23	53	54	10	15	False	coding	7433.33
+84	23	53	57	5	16	True	left	
+85	23	53	58	22	16	True	off	
+86	23	53	58	27	16	True	right	
+87	23	53	59	28	16	True	off	
+88	23	54	0	2	16	True	left	
+89	23	54	1	23	16	False	left	
+	23	54	1	23	16	False	coding	8566.67
+90	23	54	4	20	17	True	left	
+91	23	54	7	4	17	True	off	
+92	23	54	7	10	17	True	right	
+93	23	54	10	10	17	False	right	
+	23	54	10	10	17	False	coding	8366.67
+94	23	54	13	6	18	True	left	
+95	23	54	13	8	18	True	off	
+96	23	54	13	11	18	True	right	
+97	23	54	16	28	18	True	off	
+98	23	54	17	1	18	True	left	
+99	23	54	18	21	18	False	left	
+	23	54	18	21	18	False	coding	7900.0
+100	23	54	21	17	19	True	off	
+101	23	54	21	19	19	True	left	
+102	23	54	22	9	19	True	off	
+103	23	54	22	15	19	True	right	
+104	23	54	23	1	19	True	off	
+105	23	54	23	5	19	True	left	
+106	23	54	24	20	19	True	off	
+107	23	54	24	25	19	True	right	
+108	23	54	26	18	19	False	right	
+	23	54	26	18	19	False	coding	11200.0
+	23	54	37	24	21	False	coding	5700.0
+109	23	54	37	24	21	True	left	
+110	23	54	38	28	21	True	off	
+111	23	54	39	2	21	True	right	
+112	23	54	40	26	21	True	off	
+113	23	54	41	0	21	True	left	
+114	23	54	43	14	21	True	off	
+115	23	54	43	15	21	False	away	
+	23	54	43	15	21	False	coding	7500.0
+116	23	54	46	12	22	True	left	
+117	23	54	49	27	22	True	off	
+118	23	54	50	2	22	True	right	
+119	23	54	51	0	22	False	right	
+	23	54	51	0	22	False	coding	7466.67
+120	23	54	53	26	23	True	left	
+121	23	54	54	6	23	True	off	
+122	23	54	54	9	23	True	right	
+123	23	54	54	27	23	True	off	
+124	23	54	55	0	23	True	left	
+125	23	54	55	17	23	True	off	
+126	23	54	55	20	23	True	right	
+127	23	54	56	19	23	True	off	
+128	23	54	56	23	23	True	left	
+129	23	54	58	14	23	False	left	
+	23	54	58	14	23	False	coding	8500.0
+130	23	55	1	11	24	True	right	
+131	23	55	2	10	24	True	off	
+132	23	55	2	14	24	True	left	
+133	23	55	6	7	24	True	off	
+134	23	55	6	8	24	True	away	
+135	23	55	6	29	24	False	away	
+	23	55	6	29	24	False	coding	8300.0
+136	23	55	9	25	25	True	right	
+137	23	55	10	3	25	True	off	
+138	23	55	10	7	25	True	left	
+139	23	55	11	8	25	True	off	
+140	23	55	11	11	25	True	right	
+141	23	55	13	26	25	True	off	
+142	23	55	13	29	25	True	left	
+143	23	55	15	5	25	True	off	
+144	23	55	15	7	25	True	right	
+145	23	55	15	8	25	False	right	
+	23	55	15	8	25	False	coding	7333.33
+146	23	55	18	4	26	True	left	
+147	23	55	18	26	26	True	off	
+148	23	55	19	3	26	True	right	
+149	23	55	21	19	26	True	off	
+150	23	55	21	23	26	True	left	
+151	23	55	22	18	26	False	left	
+	23	55	22	18	26	False	coding	7666.67
+152	23	55	25	14	27	True	right	
+153	23	55	25	27	27	True	off	
+154	23	55	25	28	27	True	away	
+155	23	55	26	7	27	True	off	
+156	23	55	26	8	27	True	right	
+157	23	55	30	8	27	False	right	
+	23	55	30	8	27	False	coding	7366.67
+158	23	55	33	3	28	True	right	
+159	23	55	35	5	28	True	off	
+160	23	55	35	9	28	True	left	
+161	23	55	37	19	28	False	left	
+	23	55	37	19	28	False	coding	7466.67
+162	23	55	40	14	29	True	right	
+163	23	55	41	23	29	True	off	
+164	23	55	41	27	29	True	left	
+165	23	55	44	1	29	True	off	
+166	23	55	44	7	29	True	right	
+167	23	55	45	3	29	False	right	
+	23	55	45	3	29	False	coding	7300.0
+168	23	55	47	28	30	True	right	
+169	23	55	48	17	30	True	off	
+170	23	55	48	20	30	True	left	
+171	23	55	49	17	30	True	off	
+172	23	55	49	20	30	True	right	
+173	23	55	50	24	30	True	off	
+174	23	55	50	28	30	True	left	
+175	23	55	52	12	30	False	left	
+	23	55	52	12	30	False	coding	7500.0
+176	23	55	55	8	31	True	right	
+177	23	55	55	12	31	True	off	
+178	23	55	55	15	31	True	left	
+179	23	55	56	9	31	True	off	
+180	23	55	56	13	31	True	right	
+181	23	55	59	27	31	False	right	
+	23	55	59	27	31	False	coding	7666.67
+182	23	56	2	22	32	True	left	
+183	23	56	2	25	32	True	off	
+184	23	56	3	1	32	True	right	
+185	23	56	3	17	32	True	off	
+186	23	56	3	21	32	True	left	
+187	23	56	5	28	32	True	off	
+188	23	56	6	3	32	True	right	
+189	23	56	7	17	32	False	right	
+	23	56	7	17	32	False	coding	7466.67
+190	23	56	10	13	33	True	left	
+191	23	56	10	16	33	True	off	
+192	23	56	10	21	33	True	right	
+193	23	56	15	1	33	False	right	
+	23	56	15	1	33	False	coding	10300.0
+	23	56	25	10	35	False	coding	4666.67
+194	23	56	25	10	35	True	left	
+195	23	56	25	22	35	True	off	
+196	23	56	25	25	35	True	right	
+197	23	56	26	29	35	True	off	
+198	23	56	27	2	35	True	left	
+199	23	56	27	29	35	True	off	
+200	23	56	28	0	35	True	away	
+201	23	56	30	0	35	False	away	
+	23	56	30	0	35	False	coding	25533.33
+	23	56	55	16	39	False	coding	4600.0
+202	23	56	55	16	39	True	left	
+203	23	56	55	25	39	True	off	
+204	23	56	55	29	39	True	right	
+205	23	56	57	29	39	True	off	
+206	23	56	58	3	39	True	left	
+207	23	56	59	26	39	True	off	
+208	23	57	0	0	39	True	right	
+209	23	57	0	4	39	False	right	
+	23	57	0	4	39	False	coding	
