@@ -256,7 +256,7 @@ with open('../raw_data/source_data/marchman_participants_data.tsv', 'w') as tsv_
 
 			# Building the marchman_participants_data.tsv file.
 			tsv_writer = csv.writer(tsv_participants_file, delimiter='\t')
-			tsv_writer.writerow(['Number','Birthday','Sex','Months','Date of Test', 'Primary PS Complete', 'Primary Pre-Screener', 'Secondary PS Complete','Secondary PS CompleteCoded From','Coder', 'Checked By', 'Order'])
+			tsv_writer.writerow(['Number','Birthday','Sex','Months','Date of Test', 'Primary PS Complete', 'Primary Pre-Screener', 'Secondary PS Complete','Secondary PS Complete','Coded From','Coder', 'Checked By', 'Order'])
 			tsv_writer.writerow([Session_level_data['Number'], Session_level_data['Birthday'], Session_level_data['Sex'], Session_level_data['Months'], Session_level_data['Date of Test'], Session_level_data['Primary PS Complete'], Session_level_data['Primary Pre-Screener'], Session_level_data['Secondary PS Complete'], Session_level_data['Secondary PS Complete'], Session_level_data['Coded From'], Session_level_data['Coder'], Session_level_data['Checked By'], Session_level_data['Order']])
 
 			# Building the _trial_data.tsv
