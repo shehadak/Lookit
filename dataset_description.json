@@ -1,0 +1,12 @@
+"@context":"http://schema.org/",
+	"@type":"Dataset",
+	"name":"V. Marchman Data Psych-DS Dataset",
+	"description":"This is a translation of V. Marchman's dataset into Psych-DS",
+	"schemaVersion":"Psych-DS 0.1.0",
+	"creator":[
+		{"@type":"Person",
+		 "name":"Virginia Marchman"}],		
+	"citation":"",
+	"keywords":[],
+	"variableMeasured":[{:
+	}]

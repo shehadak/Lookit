@@ -2,22 +2,7 @@ import xml.etree.ElementTree as ET
 import csv
 import sys
 import os
-
-# class Session():
-# 	def __init__(self, Subject_Number, Birthday, Sex, Months, Date_of_test, Prim_PS, Prim_PSer, Sec_PS, Sec_PSer, Coded_from, Coder, Checked_by, Order):
-# 		self.Subject_Number=int(Subject_Number) # Subject ID (int).
-# 		self.Birthday=str(Birthday) # Participant's birthday (str).
-# 		self.Sex=bool(Sex) # Participant's sex: Male if true, Female if False (boolean).
-# 		self.Months=int(Months) # Participant's age in months (int).
-# 		self.Date_of_test=str(Date_of_test) # Date of test (str).
-# 		self.Prim_PS=bool(Prim_PS) # Primary Prescreening Completed? (boolean).
-# 		self.Sec_PS=bool(Sec_PS) # Secondary Prescreening Completed? (boolean).
-# 		self.Prim_PSer=str(Prim_PSer) # Primary Prescreener (str).
-# 		self.Sec_PSer=str(Sec_PSer) # Primary Prescreener (str).
-# 		self.Coded_from=int(Coded_from) # The time coding started from (int).
-# 		self.Coder=str(Coder) # Coder name/initials (str).
-# 		self.Checked_by=str(Checked_by) # Name/Initials (str).
-# 		self.Order=str(Order) # Order of session (str).
+import json
 
 class Trial():
 	def __init__(self, number, responses ,prescreened_out=False, used=True):
@@ -120,15 +105,6 @@ def extract_responses(tree):
 				int(Responses[resp]['Trial']),
 				trial_stat, Responses[resp]['Type'])
 		organized_responses.append(curr_Resp)
-		if trial_stat==False:
-			coding_Resp=Response("",
-				Responses[resp]['Timecode']['Hour'],
-				Responses[resp]['Timecode']['Minute'],
-				Responses[resp]['Timecode']['Second'],
-				Responses[resp]['Timecode']['Frame'],
-				int(Responses[resp]['Trial']),
-				trial_stat, 'coding')
-			organized_responses.append(coding_Resp)
 	return({'Subject_info':Subject_data, 'Responses':sorted(organized_responses, key=lambda x: int(x.calculate_time()))})
 
 def get_trials(Data, unused_trials=False):
@@ -168,18 +144,27 @@ def Response_duration(Responses, Response):
 	next_resp=Responses[Responses.index(Response)+1]
 	return(abs(next_resp.time-Response.time))
 
-def get_coding_duration(Responses, Response):
+def get_coding_duration(Data, Response):
 	""" Measures the duration of the trial that begins with the given 'coding' response. This function is different from Response_duration() by that it measures
 		the duration of the entire trial, instead of the duration of the time difference between the two subsequent responses.
 		Takes a list of Response objects and a specific Response object of type "coding".
 		Returns the duration of the trial that begins with the given response of type "coding".
 		NOTE: Response must be of type coding, otherwise a ValueError apeears.
 		"""
-	if Response.Type!="coding":
-		raise ValueError("Response must be of type 'coding'")
-	for i in range(Responses.index(Response)+1,len(Responses)):
-		if Responses[i].Type=='coding':
-			return round(abs(Responses[i].calculate_time()-Response.calculate_time()),2)
+	# if Response.Type!="coding":
+	# 	raise ValueError("Response must be of type 'coding'")
+	# for i in range(Responses.index(Response)+1,len(Responses)):
+	# 	if Responses[i].Type=='coding':
+	# 		return round(abs(Responses[i].calculate_time()-Response.calculate_time()),2)
+	# for tr in get_trials(Data, False):
+	# 	coding_Event=tr[0] if tr[0].trial_status==1 else 2
+	for trial in get_trials(Data, False):
+		coding_event=trial.responses[0]
+		if Response==coding_event:
+			last_Event=trial.responses[-1]
+			return(abs(last_Event.time-coding_event.time))
+
+
 
 def get_total_time(Responses, types=[], trials=None, milliseconds=False):
 	""" Takes a list of Response objects, a list of response types (e.g. ['left','right', 'away']), and a list of trial numbers.
@@ -208,12 +193,21 @@ def clean(Data):
 	Responses=copyData['Responses']
 	if len(Responses)==0:
 		return(copyData)
-	new_Responses=[Response("",Responses[0].hour,Responses[0].minute,Responses[0].second,Responses[0].frame,Responses[0].trial,False,'coding')]
-	Trials=get_trials(copyData, True)
-	for i in range(Trials.index(Trial(Responses[0].trial, []))+1,len(Trials)): # I am using this form Trials.index(Trial(Responses[0].trial))+1 so that I do not consider the very first 'coding' event established in the previous two lines.
-		if Trials[i].used and not Trials[i-1].used:
-			similar_res=Trials[i].responses[0]
-			new_Responses.append(Response("",similar_res.hour,similar_res.minute,similar_res.second,similar_res.frame,similar_res.trial,False,'coding'))
+	# new_Responses=[Response("",Responses[0].hour,Responses[0].minute,Responses[0].second,Responses[0].frame,Responses[0].trial,False,'coding')]
+	new_Responses=[]
+	Trials=get_trials(copyData, False)
+	# for i in range(len(Trials)): # I am using this form Trials.index(Trial(Responses[0].trial))+1 so that I do not consider the very first 'coding' event established in the previous two lines.
+	# 	if i!=len(Trials)-1 and Trials[i].used and Trials[i+1].used:
+	# 		similar_res=Trials[i].responses[-1]
+	# 		new_Responses.append(Response("",similar_res.hour,similar_res.minute,similar_res.second,similar_res.frame,similar_res.trial+1,False,'coding'))
+	# 	if i!= Trials.index(Trial(Responses[0].trial, [])) and Trials[i].used and not Trials[i-1].used:
+	# 		similar_res=Trials[i].responses[0]
+	# 		new_Responses.append(Response("",similar_res.hour,similar_res.minute,similar_res.second,similar_res.frame,similar_res.trial,False,'coding'))
+	# The above commented lines were used to generate the coding event at the end of each trial.
+	# TODO: delete the above commented files, if not needed.
+	for trial in Trials:
+		cur_res=trial.responses[0]
+		new_Responses.append(Response("", trial.responses[0].hour, trial.responses[0].minute, trial.responses[0].second, trial.responses[0].frame, trial.responses[0].trial, False, 'coding'))
 	Responses=new_Responses+Responses
 	return({'Subject_info': copyData['Subject_info'] , 'Responses': sorted(Responses, key=lambda x:x.time)})
 
@@ -226,8 +220,9 @@ def clean(Data):
 # 	for r in trial.responses:
 # 		print(r)
 
+objects=[]
 # vcx_dir='/Users/lookit/Desktop/Khaled-UROP/VM_to_PsychDS/V.M.-to-Psy-DS' # For Lab's mac
-vcx_dir='/Users/shehada/Desktop/vm to psychds/raw_data/source_data/vcx' # For my personal device.
+vcx_dir='/Users/shehada/Desktop/UROP/Psych-DS Project/vm to psychds/raw_data/source_data/vcx' # For my personal device.
 with open('../raw_data/source_data/marchman_participants_data.tsv', 'w') as tsv_participants_file:
 	# The marchman_participants_data.tsv file is opened this early so that we do not have to iterate over the sessions twice.
 	for File in os.listdir(vcx_dir):
@@ -247,10 +242,12 @@ with open('../raw_data/source_data/marchman_participants_data.tsv', 'w') as tsv_
 			## Building the _timecourse_data.tsv file.
 			with open('../raw_data/source_data/%s_timecourse_data.tsv' %(Filename), 'w') as tsv_timecourse_file:
 			    tsv_writer = csv.writer(tsv_timecourse_file, delimiter='\t')
-			    tsv_writer.writerow(['Response', 'Hour', 'Minute', 'Second', 'Frame', 'Trial', 'Trial Status', 'Type', 'Duration']) # First Row
+			    first_row=['Response', 'Hour', 'Minute', 'Second', 'Frame', 'Trial', 'Trial Status', 'Type', 'Duration']
+			    objects+=first_row
+			    tsv_writer.writerow(first_row) # First Row
 			    for resp in Responses_data:
 			    	if resp.Type=='coding':
-			    		tsv_writer.writerow([str(resp.ID), str(resp.hour), str(resp.minute), str(resp.second), str(resp.frame), str(resp.trial), str(resp.trial_status), str(resp.Type),get_coding_duration(Responses_data, resp)])
+			    		tsv_writer.writerow([str(resp.ID), str(resp.hour), str(resp.minute), str(resp.second), str(resp.frame), str(resp.trial), str(resp.trial_status), str(resp.Type),get_coding_duration(Data, resp)])
 			    	else:	
 			    		tsv_writer.writerow([str(resp.ID), str(resp.hour), str(resp.minute), str(resp.second), str(resp.frame), str(resp.trial), str(resp.trial_status), str(resp.Type),""])
 
@@ -259,5 +256,4 @@ with open('../raw_data/source_data/marchman_participants_data.tsv', 'w') as tsv_
 			tsv_writer.writerow(['Number','Birthday','Sex','Months','Date of Test', 'Primary PS Complete', 'Primary Pre-Screener', 'Secondary PS Complete','Secondary PS Complete','Coded From','Coder', 'Checked By', 'Order'])
 			tsv_writer.writerow([Session_level_data['Number'], Session_level_data['Birthday'], Session_level_data['Sex'], Session_level_data['Months'], Session_level_data['Date of Test'], Session_level_data['Primary PS Complete'], Session_level_data['Primary Pre-Screener'], Session_level_data['Secondary PS Complete'], Session_level_data['Secondary PS Complete'], Session_level_data['Coded From'], Session_level_data['Coder'], Session_level_data['Checked By'], Session_level_data['Order']])
 
-			# Building the _trial_data.tsv
-
+			# Building the _trial_data.tsv.
