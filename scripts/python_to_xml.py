@@ -249,7 +249,7 @@ with open('../raw_data/marchman_participants_data.tsv', 'w') as tsv_participants
 					if trial.prescreened_out:
 						tsv_writer.writerow([str(trial.number), str(trial.prescreened_out), str(trial.used), str(trial.reason)])
 					else:
-						tsv_writer.writerow([str(trial.number), str(trial.prescreened_out), str(trial.used), ""])
+						tsv_writer.writerow([str(trial.number), str(trial.prescreened_out), str(trial.used), "NA"])
 
 	
 
