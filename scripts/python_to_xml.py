@@ -5,13 +5,15 @@ import os
 import json
 
 class Trial():
-	def __init__(self, number, responses ,prescreened_out=False, used=True):
+	def __init__(self, number, responses ,prescreened_out=False, used=True, reason=""):
 		self.number=int(number)
 		self.prescreened_out=prescreened_out
 		self.responses=responses
 		self.used=used
+		self.reason=reason if prescreened_out else ""
 		if prescreened_out:
 			self.used=False
+
 
 	def __eq__(self,other):
 		return(self.number==other.number)
@@ -115,8 +117,8 @@ def get_trials(Data, unused_trials=False):
 		prescreened_out_dict=Data['Subject_info']['Pre-Screen Information']['Pre-Screen Array 0']
 		prescreened_out_list=[]
 		for entry in prescreened_out_dict:
-			prescreened_out_list.append(int(prescreened_out_dict[entry]['Trial']))
-		return([Trial(int(t), [], used=False) for t in Data['Subject_info']['Unused Trials']]+[Trial(int(t), [], prescreened_out=True) for t in prescreened_out_list])
+			prescreened_out_list.append((int(prescreened_out_dict[entry]['Trial']),str(prescreened_out_dict[entry]['Reason'])))
+		return([Trial(int(t), [], used=False) for t in Data['Subject_info']['Unused Trials']]+[Trial(int(t[0]), [], prescreened_out=True, reason=t[1]) for t in prescreened_out_list])
 	total_trials={}
 	Responses=Data['Responses']
 	for res in Responses:
@@ -151,13 +153,7 @@ def get_coding_duration(Data, Response):
 		Returns the duration of the trial that begins with the given response of type "coding".
 		NOTE: Response must be of type coding, otherwise a ValueError apeears.
 		"""
-	# if Response.Type!="coding":
-	# 	raise ValueError("Response must be of type 'coding'")
-	# for i in range(Responses.index(Response)+1,len(Responses)):
-	# 	if Responses[i].Type=='coding':
-	# 		return round(abs(Responses[i].calculate_time()-Response.calculate_time()),2)
-	# for tr in get_trials(Data, False):
-	# 	coding_Event=tr[0] if tr[0].trial_status==1 else 2
+
 	for trial in get_trials(Data, False):
 		coding_event=trial.responses[0]
 		if Response==coding_event:
@@ -193,37 +189,26 @@ def clean(Data):
 	Responses=copyData['Responses']
 	if len(Responses)==0:
 		return(copyData)
-	# new_Responses=[Response("",Responses[0].hour,Responses[0].minute,Responses[0].second,Responses[0].frame,Responses[0].trial,False,'coding')]
 	new_Responses=[]
 	Trials=get_trials(copyData, False)
-	# for i in range(len(Trials)): # I am using this form Trials.index(Trial(Responses[0].trial))+1 so that I do not consider the very first 'coding' event established in the previous two lines.
-	# 	if i!=len(Trials)-1 and Trials[i].used and Trials[i+1].used:
-	# 		similar_res=Trials[i].responses[-1]
-	# 		new_Responses.append(Response("",similar_res.hour,similar_res.minute,similar_res.second,similar_res.frame,similar_res.trial+1,False,'coding'))
-	# 	if i!= Trials.index(Trial(Responses[0].trial, [])) and Trials[i].used and not Trials[i-1].used:
-	# 		similar_res=Trials[i].responses[0]
-	# 		new_Responses.append(Response("",similar_res.hour,similar_res.minute,similar_res.second,similar_res.frame,similar_res.trial,False,'coding'))
-	# The above commented lines were used to generate the coding event at the end of each trial.
-	# TODO: delete the above commented files, if not needed.
 	for trial in Trials:
 		cur_res=trial.responses[0]
 		new_Responses.append(Response("", trial.responses[0].hour, trial.responses[0].minute, trial.responses[0].second, trial.responses[0].frame, trial.responses[0].trial, False, 'coding'))
 	Responses=new_Responses+Responses
 	return({'Subject_info': copyData['Subject_info'] , 'Responses': sorted(Responses, key=lambda x:x.time)})
 
-# tree=ET.parse('../raw_data/source_data/vcx/%s.vcx' %('trial_file'))
-# Data=clean(extract_responses(tree))
-# # for r in Data['Responses']:
-# # 	print(r)
+tree=ET.parse('../raw_data/source_data/vcx/%s.vcx' %('trial_file'))
+Data=clean(extract_responses(tree))
+# for r in Data['Responses']:
+# 	print(r)
 # for trial in (get_trials(Data, True)):
 # 	print(trial)
 # 	for r in trial.responses:
 # 		print(r)
 
-objects=[]
 # vcx_dir='/Users/lookit/Desktop/Khaled-UROP/VM_to_PsychDS/V.M.-to-Psy-DS' # For Lab's mac
 vcx_dir='/Users/shehada/Desktop/UROP/Psych-DS Project/vm to psychds/raw_data/source_data/vcx' # For my personal device.
-with open('../raw_data/source_data/marchman_participants_data.tsv', 'w') as tsv_participants_file:
+with open('../raw_data/marchman_participants_data.tsv', 'w') as tsv_participants_file:
 	# The marchman_participants_data.tsv file is opened this early so that we do not have to iterate over the sessions twice.
 	for File in os.listdir(vcx_dir):
 		if File[-4:]=='.vcx':
@@ -240,10 +225,9 @@ with open('../raw_data/source_data/marchman_participants_data.tsv', 'w') as tsv_
 			del Session_level_data['Unused Trials']
 
 			## Building the _timecourse_data.tsv file.
-			with open('../raw_data/source_data/%s_timecourse_data.tsv' %(Filename), 'w') as tsv_timecourse_file:
+			with open('../raw_data/%s_timecourse_data.tsv' %(Filename), 'w') as tsv_timecourse_file:
 			    tsv_writer = csv.writer(tsv_timecourse_file, delimiter='\t')
 			    first_row=['Response', 'Hour', 'Minute', 'Second', 'Frame', 'Trial', 'Trial Status', 'Type', 'Duration']
-			    objects+=first_row
 			    tsv_writer.writerow(first_row) # First Row
 			    for resp in Responses_data:
 			    	if resp.Type=='coding':
@@ -256,4 +240,26 @@ with open('../raw_data/source_data/marchman_participants_data.tsv', 'w') as tsv_
 			tsv_writer.writerow(['Number','Birthday','Sex','Months','Date of Test', 'Primary PS Complete', 'Primary Pre-Screener', 'Secondary PS Complete','Secondary PS Complete','Coded From','Coder', 'Checked By', 'Order'])
 			tsv_writer.writerow([Session_level_data['Number'], Session_level_data['Birthday'], Session_level_data['Sex'], Session_level_data['Months'], Session_level_data['Date of Test'], Session_level_data['Primary PS Complete'], Session_level_data['Primary Pre-Screener'], Session_level_data['Secondary PS Complete'], Session_level_data['Secondary PS Complete'], Session_level_data['Coded From'], Session_level_data['Coder'], Session_level_data['Checked By'], Session_level_data['Order']])
 
-			# Building the _trial_data.tsv.
+			# Building the _trial_data.tsv
+			with open('../raw_data/%s_trial_data.tsv' %(Filename), 'w') as tsv_trial_file:
+				tsv_writer=csv.writer(tsv_trial_file, delimiter="\t")
+				first_row=["Trial", "prescreened_out", "used", "reason"]
+				tsv_writer.writerow(first_row) # First Row
+				for trial in get_trials(Data,True):
+					if trial.prescreened_out:
+						tsv_writer.writerow([str(trial.number), str(trial.prescreened_out), str(trial.used), str(trial.reason)])
+					else:
+						tsv_writer.writerow([str(trial.number), str(trial.prescreened_out), str(trial.used), ""])
+
+	
+
+
+
+
+
+
+
+
+
+
+
