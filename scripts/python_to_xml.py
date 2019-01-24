@@ -5,12 +5,12 @@ import os
 import json
 
 class Trial():
-	def __init__(self, number, responses ,prescreened_out=False, used=True, reason=""):
+	def __init__(self, number, responses ,prescreened_out=False, used=True, reason="NA"):
 		self.number=int(number)
 		self.prescreened_out=prescreened_out
 		self.responses=responses
 		self.used=used
-		self.reason=reason if prescreened_out else ""
+		self.reason=reason if prescreened_out else "NA"
 		if prescreened_out:
 			self.used=False
 
@@ -23,7 +23,7 @@ class Trial():
 		return("Trial number %i, %s %s %s." %(self.number, 'prescreened out' if self.prescreened_out else "not prescreened out",and_or_but, 'used' if self.used else 'unused'))
 		
 class Response():
-	def __init__(self, ID, hour,minute,second,frame, trial, trial_status, Type, duration=""):
+	def __init__(self, ID, hour,minute,second,frame, trial, trial_status, Type, duration="NA"):
 		self.ID = int(ID) if Type!='coding' else str(ID) # Response ID, starts from 1. (int)
 		self.hour=int(hour) # Time of response in hours (int).
 		self.second=int(second) # Time of response in hours (int).
@@ -158,7 +158,7 @@ def get_coding_duration(Data, Response):
 		coding_event=trial.responses[0]
 		if Response==coding_event:
 			last_Event=trial.responses[-1]
-			return(abs(last_Event.time-coding_event.time))
+			return(round(abs(last_Event.time-coding_event.time),2))
 
 
 
@@ -233,11 +233,11 @@ with open('../raw_data/marchman_participants_data.tsv', 'w') as tsv_participants
 			    	if resp.Type=='coding':
 			    		tsv_writer.writerow([str(resp.ID), str(resp.hour), str(resp.minute), str(resp.second), str(resp.frame), str(resp.trial), str(resp.trial_status), str(resp.Type),get_coding_duration(Data, resp)])
 			    	else:	
-			    		tsv_writer.writerow([str(resp.ID), str(resp.hour), str(resp.minute), str(resp.second), str(resp.frame), str(resp.trial), str(resp.trial_status), str(resp.Type),""])
+			    		tsv_writer.writerow([str(resp.ID), str(resp.hour), str(resp.minute), str(resp.second), str(resp.frame), str(resp.trial), str(resp.trial_status), str(resp.Type),"NA"])
 
 			# Building the marchman_participants_data.tsv file.
 			tsv_writer = csv.writer(tsv_participants_file, delimiter='\t')
-			tsv_writer.writerow(['Number','Birthday','Sex','Months','Date of Test', 'Primary PS Complete', 'Primary Pre-Screener', 'Secondary PS Complete','Secondary PS Complete','Coded From','Coder', 'Checked By', 'Order'])
+			tsv_writer.writerow(['Number','Birthday','Sex','Months','Date of Test', 'Primary PS Complete', 'Primary Pre-Screener', 'Secondary PS Complete','Secondary Pre-Screener','Coded From','Coder', 'Checked By', 'Order'])
 			tsv_writer.writerow([Session_level_data['Number'], Session_level_data['Birthday'], Session_level_data['Sex'], Session_level_data['Months'], Session_level_data['Date of Test'], Session_level_data['Primary PS Complete'], Session_level_data['Primary Pre-Screener'], Session_level_data['Secondary PS Complete'], Session_level_data['Secondary PS Complete'], Session_level_data['Coded From'], Session_level_data['Coder'], Session_level_data['Checked By'], Session_level_data['Order']])
 
 			# Building the _trial_data.tsv
